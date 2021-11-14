@@ -5,7 +5,7 @@ import zmq
 # The subscriber thread requests messages starting with
 # A and B, then reads and counts incoming messages.
 
-def subscriber_thread():
+def subscriber_thread(opc, opc2):
     ctx = zmq.Context.instance()
 
     opc = input("esperando filtro")
@@ -13,8 +13,8 @@ def subscriber_thread():
     # Subscribe to "A" and "B"
     subscriber = ctx.socket(zmq.SUB)
     subscriber.connect("tcp://localhost:6001")
-    subscriber.setsockopt(zmq.SUBSCRIBE, b"A")
-    subscriber.setsockopt(zmq.SUBSCRIBE, b"B")
+    subscriber.setsockopt(zmq.SUBSCRIBE, opc.encode('utf-8'))
+    subscriber.setsockopt(zmq.SUBSCRIBE, opc2.encode('utf-8'))
 
     count = 0
     while count < 5:
@@ -31,4 +31,6 @@ def subscriber_thread():
     print ("Subscriber received %d messages" % count)
 
 if __name__ == "__main__":
-    subscriber_thread()
+    opc = input ("Ingrese el primer trabajo: ")
+    opc2 = input ("Ingrese el segundo trabajo: ")
+    subscriber_thread(opc, opc2)

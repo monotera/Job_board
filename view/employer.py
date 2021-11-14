@@ -15,7 +15,7 @@ def publisher_thread():
     publisher.bind("tcp://*:6000")
 
     while True:
-        string = "%s-%05d" % (uppercase[randint(0,10)], randint(0,100000))
+        string = input("Ingrese el tipo de trabajo a crear: ")
         try:
             publisher.send(string.encode('utf-8'))
         except zmq.ZMQError as e:
