@@ -8,12 +8,15 @@ def main():
     # Prepare our context and publisher
     context = zmq.Context()
     publisher = context.socket(zmq.PUB)
+    # TODO: set ident
+    publisher.identity = u"Client-{}".format(1).encode("ascii")
     publisher.bind("tcp://*:5563")
 
-    name = input("Esperando servidor")
+    name = input("Esperando filtro")
 
     code = "trabajador"
     data = "123"
+
 
     publisher.send_string(f"{code} {data}")
     code = "10002"
