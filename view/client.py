@@ -1,37 +1,34 @@
-import time
+
 import zmq
 
 
-def main():
-    """main method"""
+# The subscriber thread requests messages starting with
+# A and B, then reads and counts incoming messages.
 
-    # Prepare our context and publisher
-    context = zmq.Context()
-    publisher = context.socket(zmq.PUB)
-    # TODO: set ident
-    publisher.identity = u"Client-{}".format(1).encode("ascii")
-    publisher.bind("tcp://*:5563")
+def subscriber_thread():
+    ctx = zmq.Context.instance()
 
-    name = input("Esperando filtro")
+    opc = input("esperando filtro")
 
-    code = "trabajador"
-    data = "123"
+    # Subscribe to "A" and "B"
+    subscriber = ctx.socket(zmq.SUB)
+    subscriber.connect("tcp://localhost:6001")
+    subscriber.setsockopt(zmq.SUBSCRIBE, b"A")
+    subscriber.setsockopt(zmq.SUBSCRIBE, b"B")
 
+    count = 0
+    while count < 5:
+        try:
+            msg = subscriber.recv_multipart()
+            print(msg)
+        except zmq.ZMQError as e:
+            if e.errno == zmq.ETERM:
+                break           # Interrupted
+            else:
+                raise
+        count += 1
 
-    publisher.send_string(f"{code} {data}")
-    code = "10002"
-    data = "123asda"
-    publisher.send_string(f"{code} {data}")
-    code = "trabajador"
-    data = "123123"
-    publisher.send_string(f"{code} {data}")
-
-    time.sleep(1)
-
-    # We never get here but clean up anyhow
-    publisher.close()
-    context.term()
-
+    print ("Subscriber received %d messages" % count)
 
 if __name__ == "__main__":
-    main()
+    subscriber_thread()
