@@ -69,8 +69,15 @@ async def main():
     with open('resultado.json') as f:
         anteriores = json.load(f)
 
-    for i in range(len(anteriores)):
-        print(anteriores[i])
+    print("Cargando datos ...")
+
+    for user in anteriores:
+        str1 = ' '.join(anteriores[f'{user}'])
+        print(str1)
+        await server.set(user, str1)
+
+    print("... Datos cargados")
+    
     
     while True:
         
