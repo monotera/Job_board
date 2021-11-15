@@ -17,7 +17,7 @@ def publisher_thread():
     while True:
         string = input("Ingrese el tipo de trabajo a crear: ")
         try:
-            publisher.send(string.encode('utf-8'))
+            publisher.send_multipart([string.encode(), b'Habilidad'])
         except zmq.ZMQError as e:
             if e.errno == zmq.ETERM:
                 break           # Interrupted

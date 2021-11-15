@@ -41,24 +41,8 @@ async def add_user(msg):
 
 def process_str(msg):
     data = msg.split(" ")
-    
-    if(data[0] == "validate"):
-        return False
-        cent = asyncio.run(validate_user(msg))
-    elif(data[0] == "create"):
-        return True
-        cent = asyncio.run(add_user(msg))
-        json_data = dict(aps=data)
+    return data[0]
 
-        with open('resultado.json') as f:
-            anteriores = json.load(f)
-
-        anteriores[f'{str(data[1])}'] = json_data['aps']
-        
-        with open('resultado.json', 'w') as file:
-            json.dump(anteriores, file, indent=4, default=str)
-
-    return cent
 
 async def main():
     server = Server()
@@ -77,6 +61,8 @@ async def main():
         await server.set(user, str1)
 
     print("... Datos cargados")
+
+
     
     
     while True:
@@ -88,7 +74,7 @@ async def main():
         cent = process_str(msg[2].decode())
         data = msg[2].decode()
         data_split = data.split(" ")
-        if(cent):
+        if(cent == "create"):
             await server.set(data_split[2], data)
 
             json_data = dict(aps=data_split)
@@ -101,11 +87,14 @@ async def main():
                 json.dump(anteriores, file, indent=4, default=str)
 
             cent = False
-        else:
+        elif(cent == "validate"):
             cent = await server.get(data_split[2])
             res = cent.split(" ")
             if(res[3] != data_split[3]):
                 cent = False
+        else:
+            print("Process: ")
+            
         
         msg[2] = str(cent).encode()
         print("I: (%s) normal reply" % identity)

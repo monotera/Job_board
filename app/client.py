@@ -23,8 +23,8 @@ def subscriber_thread(opc, opc2):
     # Subscribe to "A" and "B"
     subscriber = ctx.socket(zmq.SUB)
     subscriber.connect("tcp://localhost:6001")
-    subscriber.setsockopt(zmq.SUBSCRIBE, opc.encode('utf-8'))
-    subscriber.setsockopt(zmq.SUBSCRIBE, opc2.encode('utf-8'))
+    subscriber.setsockopt(zmq.SUBSCRIBE, b"")
+    #subscriber.setsockopt(zmq.SUBSCRIBE, opc2.encode('utf-8'))
 
     count = 0
     while count < 5:
@@ -64,7 +64,7 @@ def createUser(emplo):
 
 
 if __name__ == "__main__":
-
+    """
     cent = True
     data = ""
     while(cent):
@@ -104,8 +104,9 @@ if __name__ == "__main__":
     cat1 = cat1[:-2]
 
     cat2 = res[10][1:-2]
+    """
 
-    subscriber_thread(cat1, cat2)
+    subscriber_thread("cat1 ab1", "cat2 ab2")
             
 
     

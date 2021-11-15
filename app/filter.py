@@ -1,9 +1,11 @@
 
+from socket import socket
 import time
 
 from random import randint
 from string import ascii_uppercase as uppercase
 from threading import Thread
+from queue import Queue
 
 import zmq
 from zmq.devices import monitored_queue
@@ -15,6 +17,8 @@ import zhelpers as zh
 # The listener receives all messages flowing through the proxy, on its
 # pipe. Here, the pipe is a pair of ZMQ_PAIR sockets that connects
 # attached child threads via inproc. In other languages your mileage may vary:
+
+listMsg = []
 
 def listener_thread (pipe):
     
@@ -35,8 +39,65 @@ def listener_thread (pipe):
 # The main task starts the subscriber and publisher, and then sets
 # itself up as a listening proxy. The listener runs as a child thread:
 
+def subscriber_thread(out_q):
+
+    ctx = zmq.Context.instance()
+    subscriber = ctx.socket(zmq.SUB)
+    subscriber.connect("tcp://localhost:6000")
+    subscriber.setsockopt(zmq.SUBSCRIBE, b'');
+
+    while(True):
+        try:
+            msg = subscriber.recv_multipart()
+            out_q.put(msg)
+            print(msg)
+        except zmq.ZMQError as e:
+            if e.errno == zmq.ETERM:
+                break           # Interrupted
+            else:
+                raise
+
+def publisher_thread(in_q):
+
+    ctx = zmq.Context.instance()
+    publisher = ctx.socket(zmq.PUB)
+    publisher.bind("tcp://*:6001")
+    while(True):
+        msg = in_q.get()
+        try:
+            publisher.send_multipart(msg)
+        except zmq.ZMQError as e:
+            if e.errno == zmq.ETERM:
+                break           # Interrupted
+            else:
+                raise
+        time.sleep(0.1)         # Wait for 1/10th second
+
+def server_thread(in_q):
+        context = zmq.Context()
+        socket = context.socket(zmq.REQ)
+        socket.connect("tcp://localhost:5555")
+        socket.send(str("user").encode())
+        print(socket.recv().decode())
+
+
+
 def main ():
 
+    out_q = Queue()
+
+    s_thread = Thread(target=subscriber_thread, args=(out_q,))
+    s_thread.start()
+
+    p_thread = Thread(target=publisher_thread, args=(out_q,))
+    p_thread.start()
+
+    server_thread = Thread(target=server_thread, args=(out_q,))
+    server_thread.start()
+
+    
+
+    """
     # Start child threads
     ctx = zmq.Context.instance()
     #p_thread = Thread(target=publisher_thread)
@@ -57,11 +118,13 @@ def main ():
 
     try:
         monitored_queue(subscriber, publisher, pipe[0], b'pub', b'sub')
+
     except KeyboardInterrupt:
         print ("Interrupted")
 
     del subscriber, publisher, pipe
     ctx.term()
+    """
 
 if __name__ == '__main__':
     main()
