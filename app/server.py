@@ -62,7 +62,6 @@ async def main():
 
     print("... Datos cargados")
 
-
     
     
     while True:
@@ -93,7 +92,17 @@ async def main():
             if(res[3] != data_split[3]):
                 cent = False
         else:
-            print("Process: ")
+            cent = ""
+            raw_values = server.storage.data.values()
+            list_values = list(raw_values)
+            for value in list_values:
+                value_split = value[1].split(" ")
+                if value_split[7] == "Habilidad":
+                    cent = cent + " | " + value[1]
+            oferta = msg[2].decode()
+            hab = msg[3].decode()
+            print("oferta: ",oferta)
+            print("hab: ",hab)
             
         
         msg[2] = str(cent).encode()
