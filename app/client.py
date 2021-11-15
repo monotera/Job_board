@@ -11,6 +11,7 @@ from collections import namedtuple
 import Employee
 import User
 import Job_type as jt
+import re
 
 # The subscriber thread requests messages starting with
 # A and B, then reads and counts incoming messages.
@@ -65,7 +66,7 @@ def createUser(emplo):
 if __name__ == "__main__":
 
     cent = True
-
+    data = ""
     while(cent):
         opc = input("1. Crear cuenta\n2. Iniciar sesion\n")
 
@@ -87,8 +88,7 @@ if __name__ == "__main__":
                     cent2 = False
             message = createUser(emplo)
             print(message)
-            if(message != NULL):
-                cent = False
+            cent = False
 
         if(opc == str(2)):
             while cent:
@@ -96,9 +96,16 @@ if __name__ == "__main__":
                 password = input ("Ingrese su contrasena: ")
                 user = Employee.Employee(username, password, "validate")
                 data = validate_user(user)
-                print(data)
-                if(data != NULL):
+                if(data != "False"):
                     cent = False
+
+    res = data.split(" ")
+    cat1 = res[9][2:]
+    cat1 = cat1[:-2]
+
+    cat2 = res[10][1:-2]
+
+    subscriber_thread(cat1, cat2)
             
 
     

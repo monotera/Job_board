@@ -99,6 +99,8 @@ async def main():
             
             with open('resultado.json', 'w') as file:
                 json.dump(anteriores, file, indent=4, default=str)
+
+            cent = False
         else:
             cent = await server.get(data_split[2])
             res = cent.split(" ")

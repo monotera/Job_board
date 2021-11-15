@@ -10,7 +10,7 @@
         "[]",
         "Academic_formation.PROFESIONAL",
         "['DIRECTORES_GERENTES',",
-        "'DIRECTORES_GERENTES']"
+        "'TECNICOS_PROFESIONALES']"
     ],
     "Andres": [
         "create",
@@ -23,6 +23,6 @@
         "[]",
         "Academic_formation.PROFESIONAL",
         "['DIRECTORES_GERENTES',",
-        "'DIRECTORES_GERENTES']"
+        "'TECNICOS_PROFESIONALES']"
     ]
 }

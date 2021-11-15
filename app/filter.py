@@ -8,7 +8,7 @@ from threading import Thread
 import zmq
 from zmq.devices import monitored_queue
 
-from ..Resources import zhelpers as zh
+import zhelpers as zh
 
 
 # listener thread
