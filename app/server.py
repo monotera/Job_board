@@ -10,6 +10,8 @@ from zmq.sugar.constants import NULL
 import Employee
 from collections import namedtuple
 
+numUser = 0
+
 async def validate_user(msg):
     data = msg.split(" ")
     server = Server()
@@ -63,6 +65,12 @@ async def main():
     await server.listen(8469)
     bootstrap_node = ("127.0.0.2", 8469)
     await server.bootstrap([bootstrap_node])
+
+    with open('resultado.json') as f:
+        anteriores = json.load(f)
+
+    for i in range(len(anteriores)):
+        print(anteriores[i])
     
     while True:
         
@@ -75,8 +83,20 @@ async def main():
         data_split = data.split(" ")
         if(cent):
             await server.set(data_split[2], data)
+
+            json_data = dict(aps=data_split)
+            with open('resultado.json') as f:
+                anteriores = json.load(f)
+
+            anteriores[f'{data_split[2]}'] = json_data['aps']
+            
+            with open('resultado.json', 'w') as file:
+                json.dump(anteriores, file, indent=4, default=str)
         else:
             cent = await server.get(data_split[2])
+            res = cent.split(" ")
+            if(res[3] != data_split[3]):
+                cent = False
         
         msg[2] = str(cent).encode()
         print("I: (%s) normal reply" % identity)
