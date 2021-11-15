@@ -71,10 +71,12 @@ async def main():
             break
 
         cent = process_str(msg[2].decode())
+        data = msg[2].decode()
+        data_split = data.split(" ")
         if(cent):
-            await server.set("Carlos", "msg")
+            await server.set(data_split[2], data)
         else:
-            cent = await server.get("Carlos")
+            cent = await server.get(data_split[2])
         
         msg[2] = str(cent).encode()
         print("I: (%s) normal reply" % identity)
