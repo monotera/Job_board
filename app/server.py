@@ -97,7 +97,7 @@ async def main():
             list_values = list(raw_values)
             for value in list_values:
                 value_split = value[1].split(" ")
-                if value_split[7] == "Habilidad":
+                if value_split[6] == "Habilidad":
                     cent = cent + " | " + value[1]
             oferta = msg[2].decode()
             hab = msg[3].decode()

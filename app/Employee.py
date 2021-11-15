@@ -5,10 +5,11 @@ import json
 
 class Employee:
     codeEM = 0
-    JO_categories = ""
+    JO_categories = []
     age = 0
     connect = True
-    capacities = ab.Abilities(0)
+    capacities = ""
+    formation = ""
 
     def __init__(self, name, password, funct):
         self.name=name
@@ -29,7 +30,7 @@ class Employee:
     """
 
     def __str__(self):
-        return f'{self.funct} {self.codeEM} {self.name} {self.password} {self.age} {self.connect} {self.capacities} {str(self.JO_categories)}'
+        return f'{self.funct} {self.codeEM} {self.name} {self.password} {self.age} {self.connect} {self.capacities} {self.formation} {str(self.JO_categories)}'
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 

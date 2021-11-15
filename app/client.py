@@ -11,12 +11,13 @@ from collections import namedtuple
 import Employee
 import User
 import Job_type as jt
+import Academic_formation as af
 import re
 
 # The subscriber thread requests messages starting with
 # A and B, then reads and counts incoming messages.
 
-def subscriber_thread(opc, opc2):
+def subscriber_thread(cat1, cat2, hability, user):
     ctx = zmq.Context.instance()
 
 
@@ -29,7 +30,8 @@ def subscriber_thread(opc, opc2):
     while True:
         try:
             msg = subscriber.recv_multipart()
-            print(msg)
+            #print(msg)
+            print(msg[0].decode())
         except zmq.ZMQError as e:
             if e.errno == zmq.ETERM:
                 break           # Interrupted
@@ -62,7 +64,7 @@ def createUser(emplo):
 
 
 if __name__ == "__main__":
-    """
+    
     cent = True
     data = ""
     while(cent):
@@ -77,16 +79,12 @@ if __name__ == "__main__":
             emplo.age = input ("Ingrese su edad: ")
             emplo.JO_categories.append(jt.Job_type(int(input("Ingrese la primera categoria de trabajo a escoger:\nFUERZAS_MILITARES = 1\nDIRECTORES_GERENTES = 2\nPROFESIONALES_CIENTIFICOS = 3\nTECNICOS_PROFESIONALES = 4\nPERSONAL_APOYO_ADM = 5\nTRABAJADORES_VENDEDORES = 6\n"))).name)
             emplo.JO_categories.append(jt.Job_type(int(input("Ingrese la segunda categoria de trabajo a escoger:\nFUERZAS_MILITARES = 1\nDIRECTORES_GERENTES = 2\nPROFESIONALES_CIENTIFICOS = 3\nTECNICOS_PROFESIONALES = 4\nPERSONAL_APOYO_ADM = 5\nTRABAJADORES_VENDEDORES = 6\n"))).name)
-            cent2 = True
-            while(cent2):
-                opc2 = input("Desea agregar una nueva capacidad (S/N): ")
-                if(opc2 == "S"):
-                    emplo.capacities =input("Ingrese la capacidad: ")
-                else:
-                    cent2 = False
+            emplo.capacities =input("Ingrese la capacidad: ")
+            emplo.formation = af.Academic_formation(int(input("Ingrese su formación academica:\nPROFESIONAL = 1\nPOSGRADO = 2\nMAESTRIA = 3\nDOCTORADO = 4\n"))).name
+                
             message = createUser(emplo)
-            print(message)
-            cent = False
+            print("Cuenta creada con exito!! ahora inicia secion")
+            cent = True
 
         if(opc == str(2)):
             while cent:
@@ -98,13 +96,19 @@ if __name__ == "__main__":
                     cent = False
 
     res = data.split(" ")
-    cat1 = res[9][2:]
+    cat1 = res[8][2:]
     cat1 = cat1[:-2]
 
-    cat2 = res[10][1:-2]
-    """
+    cat2 = res[9][1:-2]
 
-    subscriber_thread("cat1 ab1", "cat2 ab2")
+    hability = res[6]
+    user = res[2]
+    
+    print(cat1)
+    print(cat2)
+    print(hability)
+    print("----")
+    subscriber_thread(cat1, cat2, hability, user)
             
 
     

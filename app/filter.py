@@ -78,7 +78,7 @@ def server_thread(request_q, reply_q):
             for i in range(10):
                 context = zmq.Context()
                 socket = context.socket(zmq.REQ)
-                socket.connect("tcp://25.12.72.51:5555")
+                socket.connect("tcp://localhost:5555")
                 msg = request_q.get()
                 print(msg)
                 socket.send_multipart(msg)
