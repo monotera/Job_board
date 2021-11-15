@@ -18,7 +18,6 @@ import zhelpers as zh
 # pipe. Here, the pipe is a pair of ZMQ_PAIR sockets that connects
 # attached child threads via inproc. In other languages your mileage may vary:
 
-listMsg = []
 
 def listener_thread (pipe):
     
@@ -39,7 +38,7 @@ def listener_thread (pipe):
 # The main task starts the subscriber and publisher, and then sets
 # itself up as a listening proxy. The listener runs as a child thread:
 
-def subscriber_thread(out_q):
+def subscriber_thread(request_q):
 
     ctx = zmq.Context.instance()
     subscriber = ctx.socket(zmq.SUB)
@@ -49,7 +48,7 @@ def subscriber_thread(out_q):
     while(True):
         try:
             msg = subscriber.recv_multipart()
-            out_q.put(msg)
+            request_q.put(msg)
             print(msg)
         except zmq.ZMQError as e:
             if e.errno == zmq.ETERM:
@@ -57,15 +56,15 @@ def subscriber_thread(out_q):
             else:
                 raise
 
-def publisher_thread(in_q):
+def publisher_thread(reply_q):
 
     ctx = zmq.Context.instance()
     publisher = ctx.socket(zmq.PUB)
     publisher.bind("tcp://*:6001")
     while(True):
-        msg = in_q.get()
+        msg = reply_q.get()
         try:
-            publisher.send_multipart(msg)
+            publisher.send(msg.encode())
         except zmq.ZMQError as e:
             if e.errno == zmq.ETERM:
                 break           # Interrupted
@@ -73,27 +72,31 @@ def publisher_thread(in_q):
                 raise
         time.sleep(0.1)         # Wait for 1/10th second
 
-def server_thread(in_q):
-        context = zmq.Context()
-        socket = context.socket(zmq.REQ)
-        socket.connect("tcp://localhost:5555")
-        socket.send(str("user").encode())
-        print(socket.recv().decode())
-
-
+def server_thread(request_q, reply_q):
+    while(True):
+        if(request_q.qsize()>10):
+            for i in range(10):
+                context = zmq.Context()
+                socket = context.socket(zmq.REQ)
+                socket.connect("tcp://25.12.72.51:5555")
+                msg = request_q.get()
+                print(msg)
+                socket.send_multipart(msg)
+                reply_q.put(socket.recv().decode())
 
 def main ():
 
-    out_q = Queue()
+    request_q = Queue()
+    reply_q = Queue()
 
-    s_thread = Thread(target=subscriber_thread, args=(out_q,))
+    s_thread = Thread(target=subscriber_thread, args=(request_q,))
     s_thread.start()
 
-    p_thread = Thread(target=publisher_thread, args=(out_q,))
+    p_thread = Thread(target=publisher_thread, args=(reply_q,))
     p_thread.start()
 
-    server_thread = Thread(target=server_thread, args=(out_q,))
-    server_thread.start()
+    ser_thread = Thread(target=server_thread, args=(request_q, reply_q, ))
+    ser_thread.start()
 
     
 

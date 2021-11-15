@@ -5,7 +5,7 @@ import json
 
 class Employee:
     codeEM = 0
-    JO_categories = []
+    JO_categories = ""
     age = 0
     connect = True
     capacities = ab.Abilities(0)
@@ -29,10 +29,7 @@ class Employee:
     """
 
     def __str__(self):
-        return f'{self.funct} {self.codeEM} {self.name} {self.password} {self.age} {self.connect} {str(self.capacities)} {str(self.JO_categories)}'
-
-    def addCapacity(self, string):
-        self.capacities.append(string)
+        return f'{self.funct} {self.codeEM} {self.name} {self.password} {self.age} {self.connect} {self.capacities} {str(self.JO_categories)}'
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 
