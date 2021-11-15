@@ -26,8 +26,7 @@ def subscriber_thread(opc, opc2):
     subscriber.setsockopt(zmq.SUBSCRIBE, b"")
     #subscriber.setsockopt(zmq.SUBSCRIBE, opc2.encode('utf-8'))
 
-    count = 0
-    while count < 5:
+    while True:
         try:
             msg = subscriber.recv_multipart()
             print(msg)
@@ -36,7 +35,6 @@ def subscriber_thread(opc, opc2):
                 break           # Interrupted
             else:
                 raise
-        count += 1
 
     print ("Subscriber received %d messages" % count)
 
@@ -83,7 +81,7 @@ if __name__ == "__main__":
             while(cent2):
                 opc2 = input("Desea agregar una nueva capacidad (S/N): ")
                 if(opc2 == "S"):
-                    emplo.capacities.addCapacity(input("Ingrese la capacidad: "))
+                    emplo.capacities =input("Ingrese la capacidad: ")
                 else:
                     cent2 = False
             message = createUser(emplo)

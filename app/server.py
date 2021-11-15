@@ -93,7 +93,7 @@ async def main():
             if(res[3] != data_split[3]):
                 cent = False
         else:
-            print("Process: ")
+            print(data_split)
             
         
         msg[2] = str(cent).encode()
