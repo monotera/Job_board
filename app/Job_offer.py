@@ -1,4 +1,4 @@
-from Enum import Job_type as jt
+import Job_type as jt
 import Abilities as ab
 
 

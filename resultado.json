@@ -1,0 +1,28 @@
+{
+    "aps": [
+        "create",
+        "0",
+        "Carlos",
+        "12341",
+        "12",
+        "True",
+        "0",
+        "[]",
+        "Academic_formation.PROFESIONAL",
+        "['DIRECTORES_GERENTES',",
+        "'DIRECTORES_GERENTES']"
+    ],
+    "0": [
+        "create",
+        "0",
+        "Carlos",
+        "222",
+        "22",
+        "True",
+        "0",
+        "[]",
+        "Academic_formation.PROFESIONAL",
+        "['DIRECTORES_GERENTES',",
+        "'DIRECTORES_GERENTES']"
+    ]
+}

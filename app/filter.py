@@ -8,7 +8,7 @@ from threading import Thread
 import zmq
 from zmq.devices import monitored_queue
 
-from zhelpers import zpipe
+from ..Resources import zhelpers as zh
 
 
 # listener thread
@@ -44,7 +44,7 @@ def main ():
     #p_thread.start()
     #s_thread.start()
 
-    pipe = zpipe(ctx)
+    pipe = zh.zpipe(ctx)
 
     subscriber = ctx.socket(zmq.XSUB)
     subscriber.connect("tcp://localhost:6000")
