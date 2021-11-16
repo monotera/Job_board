@@ -1,14 +1,17 @@
 import Job_type as jt
 import Abilities as ab
+from random import randrange
 
 
 class JobOffer:
     codeJO = 0
     vancacy_queue = []
-    funt = "oferta"
+    funt = "offer"
+    meet = "Viernes-8pm"
+    employer = ""
 
     def __init__(self):
-        self.name = "OFF"+input("Ingrese el nombre del trabajo: ")
+        self.name = "OFF"+str(randrange(1000))+"_"+input("Ingrese el nombre del trabajo: ")
         self.vacancies = input("Ingrese el número de vacantes: ")
         self.salary = input("Ingrese el sueldo: ")
         self.typeJ = jt.Job_type(
@@ -26,7 +29,7 @@ class JobOffer:
     """
     
     def __str__(self):
-        return f'{self.funt} {self.codeJO} {self.name} {self.vacancies} {self.salary} {self.typeJ} {self.capacities} {self.vancacy_queue}'
+        return f'{self.funt} {self.codeJO} {self.name} {self.vacancies} {self.salary} {self.typeJ} {self.capacities} {self.vancacy_queue} {self.meet} {self.employer}'
 
 """
 job1 = JobOffer()

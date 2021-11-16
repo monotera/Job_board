@@ -14,7 +14,7 @@ import datetime
 # publisher thread
 # The publisher sends random messages starting with A-J:
 
-def publisher_thread():
+def publisher_thread(username):
     ctx = zmq.Context.instance()
 
     publisher = ctx.socket(zmq.PUB)
@@ -23,6 +23,7 @@ def publisher_thread():
     while True:
         opc = input("Desea ingresar una oferta de trabajo (S/N): ")
         offer = Job_offer.JobOffer()
+        offer.employer = username
         print(str(offer))
 
         try:
@@ -62,6 +63,7 @@ if __name__ == "__main__":
     
     cent = True
     data = ""
+    username = ""
     while(cent):
         opc = input("1. Crear cuenta\n2. Iniciar sesion\n")
 
@@ -70,7 +72,8 @@ if __name__ == "__main__":
         if(opc == str(1)):
             username = input ("Ingrese su usuario: ")
             password = input ("Ingrese su contrasena: ")
-            emplo = Employee.Employee(username, password, "createEmployer")
+            emplo = Employee.Employee(username, password, "create")
+            emplo.codeEM = 1
             message = createUser(emplo)
             print("Cuenta creada con exito!! ahora inicia secion")
             cent = True
@@ -79,12 +82,12 @@ if __name__ == "__main__":
             while cent:
                 username = input ("Ingrese su usuario: ")
                 password = input ("Ingrese su contrasena: ")
-                user = Employee.Employee(username, password, "validateEmployer")
+                user = Employee.Employee(username, password, "validate")
                 data = validate_user(user)
                 if(data != "False"):
                     cent = False
     
-
-
-    p_thread = Thread(target=publisher_thread, args=())
+    p_thread = Thread(target=publisher_thread, args=(username, ))
     p_thread.start()
+
+    

@@ -35,14 +35,22 @@ def subscriber_thread(user):
         try:
             msg = subscriber.recv_multipart()
             #print(msg)
-            print(msg[0].decode())
+            if(len(msg[0].decode())>5):
+                data = msg[0].decode()
+                data = data.split(" ")
+                resul = data[2].split(",")
+                if(resul[0] == user):
+                    print("Trabajo encontrado: ")
+                    resul = data[2].split(",")
+                    print("Nombre del trabajo: "+resul[4])
+                    print("Tipo de trabajo: "+resul[1])
+                    print("Hora de la reunion: "+resul[2])
+                    print("Empleador a cargo: "+resul[3])
         except zmq.ZMQError as e:
             if e.errno == zmq.ETERM:
                 break           # Interrupted
             else:
                 raise
-
-    print ("Subscriber received %d messages" % count)
 
 def validate_user(user):
     resul = str(user).split(" ")
