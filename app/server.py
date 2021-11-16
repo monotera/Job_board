@@ -57,6 +57,7 @@ async def main():
             with open('resultado.json', 'w') as file:
                 json.dump(anteriores, file, indent=4, default=str)
 
+
             cent = False
         elif(cent == "validate"):
             cent = await server.get(data_split[2])
@@ -86,7 +87,7 @@ async def main():
                 
                 if value_split[1] == "0" and value_split[5] == "True" and int(data_split[3]) > 0:
                     if value_split[6] == require_hab and (require_job == cat1 or require_job == cat2):
-                        candidates.append(value_split[2] + ","+ require_job + "," + date_job+ "," + owner_job)
+                        candidates.append(value_split[2] + ","+ require_job + "," + date_job+ "," + owner_job + "," + data_split[2])
                         #cent = cent + " | " + value_split[2] + ","+ require_job + "," + date_job +" | "
                 number_vacancy = int(data_split[3])
 
