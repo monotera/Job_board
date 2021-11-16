@@ -1,20 +1,22 @@
 import Job_type as jt
 import Abilities as ab
+from random import randrange
 
 
 class JobOffer:
-    next_id = 0
+    codeJO = 0
     vancacy_queue = []
+    funt = "offer"
+    meet = "Viernes-8pm"
+    employer = ""
 
     def __init__(self):
-        self.name = input("Ingrese el nombre del trabajo: ")
+        self.name = "OFF"+str(randrange(1000))+"_"+input("Ingrese el nombre del trabajo: ")
         self.vacancies = input("Ingrese el número de vacantes: ")
         self.salary = input("Ingrese el sueldo: ")
         self.typeJ = jt.Job_type(
             int(input("\nSeleccione el tipo de trabajo:\nFUERZAS_MILITARES = 1\nDIRECTORES_GERENTES = 2\nPROFESIONALES_CIENTIFICOS = 3\nTECNICOS_PROFESIONALES = 4\nPERSONAL_APOYO_ADM = 5\nTRABAJADORES_VENDEDORES = 6\n"))).name
-        self.capacities = ab.Abilities()
-        self.id = "JO" + str(JobOffer.next_id)
-        JobOffer.next_id += 1
+        self.capacities = input("Ingrese la habilidad: ")
 
     """
     def __init__(self, name, vacancies, salary, typeJ):
@@ -27,13 +29,7 @@ class JobOffer:
     """
     
     def __str__(self):
-        return f'ID: {self.id}\nNombre: {self.name}\nVacantes: {self.vacancies}\nSalario: {self.salary}\nTipo de trabajo: {self.typeJ}\nCapacidades: {str(self.capacities)}\nVacantes: {self.vancacy_queue}'
-
-    def addCodeEmployee(self, emploID):
-        if(int(self.vacancies) > len(self.vancacy_queue)):
-            self.vancacy_queue.append(emploID)
-        else:
-            print("No hay vacantes disponibles")
+        return f'{self.funt} {self.codeJO} {self.name} {self.vacancies} {self.salary} {self.typeJ} {self.capacities} {self.vancacy_queue} {self.meet} {self.employer}'
 
 """
 job1 = JobOffer()

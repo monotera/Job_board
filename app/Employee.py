@@ -2,6 +2,7 @@ from zmq.sugar.constants import NULL
 import Job_type as jt
 import Abilities as ab
 import json
+import datetime 
 
 class Employee:
     codeEM = 0
@@ -10,11 +11,13 @@ class Employee:
     connect = True
     capacities = ""
     formation = ""
+    date = ""
 
     def __init__(self, name, password, funct):
         self.name=name
         self.password=password
         self.funct = funct
+        self.date = datetime.datetime.now()
     """
     def __init__(self, name, password):
         self.name = name
@@ -30,7 +33,7 @@ class Employee:
     """
 
     def __str__(self):
-        return f'{self.funct} {self.codeEM} {self.name} {self.password} {self.age} {self.connect} {self.capacities} {self.formation} {str(self.JO_categories)}'
+        return f'{self.funct} {self.codeEM} {self.name} {self.password} {self.age} {self.connect} {self.capacities} {self.formation} {str(self.JO_categories)} {self.date}'
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 

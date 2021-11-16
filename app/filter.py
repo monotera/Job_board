@@ -78,7 +78,7 @@ def server_thread(request_q, reply_q):
             for i in range(10):
                 context = zmq.Context()
                 socket = context.socket(zmq.REQ)
-                socket.connect("tcp://localhost:5555")
+                socket.connect("tcp://25.12.72.51:5555")
                 msg = request_q.get()
                 print(msg)
                 socket.send_multipart(msg)
@@ -98,36 +98,8 @@ def main ():
     ser_thread = Thread(target=server_thread, args=(request_q, reply_q, ))
     ser_thread.start()
 
-    
-
-    """
-    # Start child threads
-    ctx = zmq.Context.instance()
-    #p_thread = Thread(target=publisher_thread)
-    #s_thread = Thread(target=subscriber_thread)
-    #p_thread.start()
-    #s_thread.start()
-
-    pipe = zh.zpipe(ctx)
-
-    subscriber = ctx.socket(zmq.XSUB)
-    subscriber.connect("tcp://localhost:6000")
-
-    publisher = ctx.socket(zmq.XPUB)
-    publisher.bind("tcp://*:6001")
-
-    l_thread = Thread(target=listener_thread, args=(pipe[1],))
-    l_thread.start()
-
-    try:
-        monitored_queue(subscriber, publisher, pipe[0], b'pub', b'sub')
-
-    except KeyboardInterrupt:
-        print ("Interrupted")
-
-    del subscriber, publisher, pipe
-    ctx.term()
-    """
+    #back_thread = Thread(target=backup_thread, args=())
+    #back_thread.start()
 
 if __name__ == '__main__':
     main()
