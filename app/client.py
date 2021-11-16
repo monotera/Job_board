@@ -1,5 +1,7 @@
 
 from ctypes import resize
+from datetime import datetime
+from threading import Thread
 import zmq
 import asyncio
 import json
@@ -7,17 +9,19 @@ from kademlia.network import Server
 from zmq.sugar.constants import NULL
 from types import SimpleNamespace
 from collections import namedtuple
+from queue import Queue
 
 import Employee
 import User
 import Job_type as jt
 import Academic_formation as af
 import re
+import datetime 
 
 # The subscriber thread requests messages starting with
 # A and B, then reads and counts incoming messages.
 
-def subscriber_thread(cat1, cat2, hability, user):
+def subscriber_thread(user):
     ctx = zmq.Context.instance()
 
 
@@ -41,24 +45,27 @@ def subscriber_thread(cat1, cat2, hability, user):
     print ("Subscriber received %d messages" % count)
 
 def validate_user(user):
+    resul = str(user).split(" ")
+    date = str(datetime.datetime.now())
+    resul[9] = date
+    resul.pop(10)
     context = zmq.Context()
     #  Socket to talk to server
     print("Connecting to server...")
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5555")
-    socket.send(str(user).encode())
+    socket.connect("tcp://25.12.72.51:5555")
+    resul = ' '.join(resul)
+    print(resul)
+    socket.send(str(resul).encode())
     #socket.send(str(123).encode())
     return socket.recv().decode()
-    
-
-
 
 def createUser(emplo):
     context = zmq.Context()
     #  Socket to talk to server
     print("Connecting to server...")
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5555")
+    socket.connect("tcp://25.12.72.51:5555")
     socket.send(str(emplo).encode())
     return socket.recv().decode()
 
@@ -108,7 +115,12 @@ if __name__ == "__main__":
     print(cat2)
     print(hability)
     print("----")
-    subscriber_thread(cat1, cat2, hability, user)
+
+
+    
+    s_thread = Thread(target=subscriber_thread, args=(user,))
+    s_thread.start()
+
             
 
     
