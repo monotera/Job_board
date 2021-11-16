@@ -1,4 +1,17 @@
 {
+    "Garzon": [
+        "create",
+        "1",
+        "Garzon",
+        "222",
+        "0",
+        "True",
+        "",
+        "",
+        "[]",
+        "2021-11-15",
+        "22:56:20.657655"
+    ],
     "Carlos": [
         "create",
         "0",
@@ -9,6 +22,128 @@
         "Habilidad",
         "POSGRADO",
         "['DIRECTORES_GERENTES',",
-        "'FUERZAS_MILITARES']"
+        "'PROFESIONALES_CIENTIFICOS']",
+        "2021-11-15",
+        "22:56:28.458867"
+    ],
+    "Garzon-OFF435_Nadador": [
+        "offer",
+        "0",
+        "OFF435_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF341_Nadador": [
+        "offer",
+        "0",
+        "OFF341_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF682_Nadador": [
+        "offer",
+        "0",
+        "OFF682_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF460_Nadador": [
+        "offer",
+        "0",
+        "OFF460_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF238_Nadador": [
+        "offer",
+        "0",
+        "OFF238_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF538_Nadador": [
+        "offer",
+        "0",
+        "OFF538_Nadador",
+        "2",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Habilidad",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF718_Nadador": [
+        "offer",
+        "0",
+        "OFF718_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF890_Nadador": [
+        "offer",
+        "0",
+        "OFF890_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF671_Nadador": [
+        "offer",
+        "0",
+        "OFF671_Nadador",
+        "2",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Habilidad",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF414_Nadador": [
+        "offer",
+        "0",
+        "OFF414_Nadador",
+        "3",
+        "3900000",
+        "DIRECTORES_GERENTES",
+        "Pro",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
     ]
 }
