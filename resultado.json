@@ -1,4 +1,17 @@
 {
+    "Garzon": [
+        "create",
+        "1",
+        "Garzon",
+        "222",
+        "0",
+        "True",
+        "",
+        "",
+        "[]",
+        "2021-11-15",
+        "22:56:20.657655"
+    ],
     "Carlos": [
         "create",
         "0",
@@ -9,6 +22,8 @@
         "Habilidad",
         "POSGRADO",
         "['DIRECTORES_GERENTES',",
-        "'FUERZAS_MILITARES']"
+        "'PROFESIONALES_CIENTIFICOS']",
+        "2021-11-15",
+        "22:56:28.458867"
     ]
 }
