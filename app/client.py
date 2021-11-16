@@ -17,14 +17,13 @@ import Job_type as jt
 import Academic_formation as af
 import re
 import datetime 
+import time
 
 # The subscriber thread requests messages starting with
 # A and B, then reads and counts incoming messages.
 
 def subscriber_thread(user):
     ctx = zmq.Context.instance()
-
-
     # Subscribe to "A" and "B"
     subscriber = ctx.socket(zmq.SUB)
     subscriber.connect("tcp://localhost:6001")
@@ -123,13 +122,9 @@ if __name__ == "__main__":
     print(cat2)
     print(hability)
     print("----")
-
-
     
     s_thread = Thread(target=subscriber_thread, args=(user,))
     s_thread.start()
-
-            
 
     
     #asyncio.run(validate_user(username,password))
