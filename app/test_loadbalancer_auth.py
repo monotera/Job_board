@@ -61,3 +61,5 @@ while True:
         backend.send_multipart(request)
         elapsed_time = time.time() - start_time
         print("Loadbalancer: client() Tiempo transcurrido: ", str(elapsed_time))
+        with open("LoadBalancer.txt", "a") as text_file:
+                text_file.write(str(elapsed_time) + "\n")

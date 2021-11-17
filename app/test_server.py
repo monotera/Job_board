@@ -20,8 +20,8 @@ def process_str(msg):
 
 async def main():
     server = Server()
-    await server.listen(8469)
-    bootstrap_node = ("127.0.0.2", 8469)
+    await server.listen(8468)
+    bootstrap_node = ("25.77.13.156", 8468)
     await server.bootstrap([bootstrap_node])
 
     with open('resultado.json') as f:
@@ -61,6 +61,8 @@ async def main():
 
             elapsed_time = time.time() - start_time
             print("Server: create() Tiempo transcurrido: ", str(elapsed_time))
+            with open("create.txt", "a") as text_file:
+                text_file.write(str(elapsed_time) + "\n")
             cent = False
             
         elif(cent == "validate"):
@@ -77,6 +79,8 @@ async def main():
                 await server.set(data_split[2],cent)
             elapsed_time = time.time() - start_time
             print("Server: validate() Tiempo transcurrido: ", str(elapsed_time))
+            with open("validate.txt", "a") as text_file:
+                text_file.write(str(elapsed_time) + "\n")
 
         elif cent == "offer":
             print("Server: offer() Cuenta iniciada...")
@@ -94,16 +98,16 @@ async def main():
                 value_split = value[1].split(" ") 
                 cat1 = value_split[8][2:-2]
                 cat2 = value_split[9][1:-2]
-                
                 if value_split[1] == "0" and value_split[5] == "True" and int(data_split[3]) > 0:
+                    print(str(value_split[6]), "   ", str(require_hab), "  " , str(cat1), " ", str(cat2))
                     if value_split[6] == require_hab and (require_job == cat1 or require_job == cat2):
                         candidates.append(value_split[2] + ","+ require_job + "," + date_job+ "," + owner_job + "," + data_split[2])
                         #cent = cent + " | " + value_split[2] + ","+ require_job + "," + date_job +" | "
-                number_vacancy = int(data_split[3])
-
-                counter = 0
+              
+            number_vacancy = int(data_split[3])
+            counter = 0
             for i in range(len(candidates)):
-                cent = cent + " | "+ candidates[i]
+                cent = cent + " | "+ candidates[i] + " | "
                 counter += 1
                 if(counter > number_vacancy):
                     break
@@ -126,11 +130,12 @@ async def main():
             
             elapsed_time = time.time() - start_time
             print("Server: offer() Tiempo transcurrido: ", str(elapsed_time))
-
+            with open("offer.txt", "a") as text_file:
+                text_file.write(str(elapsed_time) + "\n")
         
         msg[2] = str(cent).encode()
         print("I: (%s) normal reply" % identity)
-        
+        print("MENSAJE ENVIADO -----> ", msg)
         worker.send_multipart(msg)
 
 

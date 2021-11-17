@@ -1,2 +1,64 @@
 {
+    "Camilo": [
+        "create",
+        "0",
+        "Camilo",
+        "123456",
+        "22",
+        "True",
+        "Correr",
+        "PROFESIONAL",
+        "['TECNICOS_PROFESIONALES',",
+        "'PERSONAL_APOYO_ADM']",
+        "2021-11-16",
+        "23:38:09.458678"
+    ],
+    "Garzon-OFF839_Jugador": [
+        "offer",
+        "0",
+        "OFF839_Jugador",
+        "9",
+        "300000",
+        "PERSONAL_APOYO_ADM",
+        "Disponibilidad",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF466_Entrenador": [
+        "offer",
+        "0",
+        "OFF466_Entrenador",
+        "3",
+        "2000000",
+        "TECNICOS_PROFESIONALES",
+        "Correr",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF984_Programador2": [
+        "offer",
+        "0",
+        "OFF984_Programador2",
+        "3",
+        "2000000",
+        "PERSONAL_APOYO_ADM",
+        "SQL",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ],
+    "Garzon-OFF268_Contador_intermedio": [
+        "offer",
+        "0",
+        "OFF268_Contador_intermedio",
+        "3",
+        "3000354",
+        "TECNICOS_PROFESIONALES",
+        "Excel",
+        "[]",
+        "Viernes-8pm",
+        "Garzon"
+    ]
 }

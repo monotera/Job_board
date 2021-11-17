@@ -1,4 +1,3 @@
-
 from ctypes import resize
 from datetime import datetime
 from threading import Thread
@@ -26,7 +25,7 @@ def subscriber_thread(user):
     ctx = zmq.Context.instance()
     # Subscribe to "A" and "B"
     subscriber = ctx.socket(zmq.SUB)
-    subscriber.connect("tcp://localhost:6001")
+    subscriber.connect("tcp://25.3.90.86:6001")
     subscriber.setsockopt(zmq.SUBSCRIBE, b"")
     #subscriber.setsockopt(zmq.SUBSCRIBE, opc2.encode('utf-8'))
 
@@ -70,6 +69,8 @@ def validate_user(user):
     ret = socket.recv().decode()
     elapsed_time = time.time() - start_time
     print("Client: validate_user() Tiempo transcurrido: ", str(elapsed_time))
+    with open("cliValidate.txt", "a") as text_file:
+                text_file.write(str(elapsed_time) + "\n")
     return ret
 
 def createUser(emplo):
@@ -84,6 +85,8 @@ def createUser(emplo):
     ret = socket.recv().decode()
     elapsed_time = time.time() - start_time
     print("Client: create_user() Tiempo transcurrido: ", str(elapsed_time))
+    with open("cliCreate.txt", "a") as text_file:
+                text_file.write(str(elapsed_time) + "\n")
     return ret
 
 
@@ -107,7 +110,7 @@ if __name__ == "__main__":
             emplo.formation = af.Academic_formation(int(input("Ingrese su formación academica:\nPROFESIONAL = 1\nPOSGRADO = 2\nMAESTRIA = 3\nDOCTORADO = 4\n"))).name
                 
             message = createUser(emplo)
-            print("Cuenta creada con exito!! ahora inicia secion")
+            print("Cuenta creada con exito!! ahora inicia sesion")
             cent = True
 
         if(opc == str(2)):
